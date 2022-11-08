@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>show</title>
+</head>
+<body>
+<p th:text="${person.getFullName() + ',' + person.getBirthYear()}"></p>
+
+<hr>
+<br>
+<div th:if="${!books.isEmpty()}">
+    <div th:each="book : ${books}" th:if="${book.getPersonId() == person.getId()}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}" th:if="${book.getPersonId() == person.getId()}" th:text="${book.getName() + ', ' + book.getAuthorName() + ', ' + book.getYear()}">TRUE</a>
+    </div>
+</div>
+
+<div th:if="${books.isEmpty()}">
+    <p>this person without any book</p>
+</div>
+<br>
+<hr>
+
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit person</a>
+
+<br>
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="delete!">
+</form>
+
+<br>
+
+<a href="/people" style="
+background-color: red;
+  color: white;
+  padding: 1em 1.5em;
+  text-decoration: none;
+  text-transform: uppercase;">Main page!</a>
+</body>
+</html>
